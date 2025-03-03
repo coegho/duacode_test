@@ -17,13 +17,40 @@ function handleRoute($method, $uri)
         $controller_name = $routes[$uri];
         $controller = new $controller_name;
         if (method_exists($controller, $method)) {
-            echo $controller->$method();
+            $output = $controller->$method();
+        } elseif (method_exists($controller, '__invoke')) {
+            $output = $controller->__invoke();
         } else {
-            echo $controller->__invoke();
+            http_response_code(404);
+            return;
         }
+        if (is_string($output)) {
+            echo $output;
+            return;
+        }
+        if (is_array($output)) {
+            list($view, $params) = $output;
+            displayView($view, $params);
+        }
+    }
+    http_response_code(404);
+    return;
+}
+
+function displayView(string $_view_name, ?array $_params): void
+{
+    $_path = __DIR__ . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . str_replace('.', DIRECTORY_SEPARATOR, $_view_name) . '.php';
+    if (file_exists($_path)) {
+        extract($_params);
+        require $_path;
     } else {
-        http_response_code(404);
+        throw new \Exception("View $_view_name not found");
     }
 }
 
-handleRoute($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+try {
+    handleRoute($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+} catch (\Exception $e) {
+    echo $e->getMessage();
+    exit;
+}

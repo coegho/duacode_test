@@ -85,4 +85,14 @@ class Model
         $sth->execute(['id' => $id]);
         return $sth->rowCount() > 0;
     }
+
+    public static function all(): Array
+    {
+        $sth = db()->prepare('SELECT * FROM ' . static::getTableName());
+        $sth->execute();
+        $sth->setFetchMode(PDO::FETCH_CLASS, \get_called_class());
+        $model = $sth->fetchAll();
+        if ($model) return $model;
+        else return [];
+    }
 }
