@@ -10,7 +10,6 @@ function handleRoute($method, $uri)
     if (strpos($uri, $base_path) === 0) {
         $uri = substr($uri, strlen($base_path));
     }
-
     $routes = require_once __DIR__ . '/routes.php';
 
     if (array_key_exists($uri, $routes)) {
@@ -49,7 +48,7 @@ function displayView(string $_view_name, ?array $_params): void
 }
 
 try {
-    handleRoute($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+    handleRoute($_SERVER['REQUEST_METHOD'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 } catch (\Exception $e) {
     echo $e->getMessage();
     exit;

@@ -5,7 +5,7 @@
     <body>
         <ul>
             <?php foreach ($equipos as $equipo): ?>
-            <li><?= $equipo->nombre ?></li>
+            <li><a href="equipo?id=<?= $equipo->id ?>" ><?= $equipo->nombre ?></a></li>
             <?php endforeach; ?>
         </ul>
     </body>
