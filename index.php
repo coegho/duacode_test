@@ -1,10 +1,8 @@
 <?php
 
+require_once __DIR__ . '/env.php';
 require_once __DIR__ . '/vendor/autoload.php';
-
-$env = parse_ini_file('.env');
-define('APP_URL', $env['APP_URL']);
-
+require_once __DIR__ . '/db.php';
 
 function handleRoute($method, $uri)
 {
