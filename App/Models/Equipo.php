@@ -15,7 +15,8 @@ class Equipo extends Model
     public $deporte;
     public $fecha_creacion;
 
-    public function deporte(): ?string {
+    public function deporte(): ?string
+    {
         if (empty($this->deporte)) {
             return null;
         }
@@ -24,5 +25,24 @@ class Equipo extends Model
             $deportes = require_once 'config/deportes.php';
         }
         return $deportes[$this->deporte];
+    }
+
+    public function jugadores(): array
+    {
+        if (empty($this->id)) {
+            return [];
+        }
+        return Jugador::buscarPorEquipo($this->id);
+    }
+
+    public function capitan(): ?Jugador
+    {
+        $jugadores = $this->jugadores();
+        foreach ($jugadores as $jugador) {
+            if ($jugador->capitan) {
+                return $jugador;
+            }
+        }
+        return null;
     }
 }

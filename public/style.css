@@ -70,3 +70,17 @@ label, input, select, button {
 input, select {
     margin-bottom: 25px;
 }
+
+hr {
+    margin-top: 25px;
+}
+
+table {
+    margin: auto;
+    text-align: center;
+}
+
+table tr td, table tr th {
+    border: solid black 1px;
+    padding: 15px 15px;
+}

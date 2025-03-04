@@ -18,6 +18,9 @@ class ReadEquipoController
             \http_response_code(404);
             exit;
         }
-        return ['equipo.data', ['equipo' => $equipo]];
+        return ['equipo.data', [
+            'equipo' => $equipo,
+            'capitan' => $equipo->capitan(),
+            ]];
     }
 }

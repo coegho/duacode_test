@@ -11,5 +11,14 @@ CREATE TABLE Equipos (
     fecha_creacion DATE NOT NULL
 );
 
+CREATE TABLE Jugadores (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    equipo_id INT NOT NULL REFERENCES Equipos(id),
+    nombre VARCHAR(128) NOT NULL,
+    numero TINYINT NOT NULL,
+    fecha_nacimiento DATE NULL,
+    capitan BOOLEAN NOT NULL DEFAULT 0
+);
+
 INSERT INTO Deportes (nombre)
 VALUES ('Baloncesto'), ('Fútbol'), ('Balonmano'), ('Hockey'), ('Waterpolo');
