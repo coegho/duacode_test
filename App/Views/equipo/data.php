@@ -43,6 +43,7 @@
                     </tr>
                 <?php endforeach; ?>
             </table>
+            <a href="<?= APP_URL ?>/jugador/new?equipo_id=<?= $_GET['id'] ?>">Nuevo jugador</a>
         </main>
         <footer>
             <a href="<?=APP_URL ?>/equipos">Volver al listado</a>

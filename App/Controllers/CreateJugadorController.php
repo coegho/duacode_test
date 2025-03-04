@@ -5,50 +5,58 @@ namespace App\Controllers;
 use App\Models\Equipo;
 use App\Models\Jugador;
 
-class UpdateJugadorController
+class CreateJugadorController
 {
     public function get()
     {
-        if (empty($_GET['id'])) {
+        if (empty($_GET['equipo_id'])) {
             header('Location: ' . APP_URL .'/equipos');
             exit;
         }
 
-        $jugador = Jugador::read($_GET['id']);
-        $equipo = $jugador->equipo();
+        $equipo = Equipo::read($_GET['equipo_id']);
 
         return ['jugador.create', [
-            'title' => 'Editar jugador ' . $jugador->nombre,
-            'submit_text' => 'Guardar',
-            'jugador' => $jugador,
+            'title' => 'Crear un nuevo jugador',
+            'submit_text' => 'Crear',
             'equipo' => $equipo,
-            'action' => APP_URL . '/jugador/edit',
+            'jugador' => null,
+            'action' => APP_URL . '/jugador/new',
             ]];
     }
 
     public function post()
     {
-        if (empty($_POST['id'])) {
+        $errors = $this->validatePost();
+        
+        if (empty($_POST['equipo_id'])) {
             header('Location: ' . APP_URL .'/equipos');
             exit;
         }
 
-        $errors = $this->validatePost();
-        
+        $equipo = Equipo::read($_POST['equipo_id']);
+
+        if (empty($equipo)) {
+            header('Location: ' . APP_URL .'/equipos');
+            exit;
+        }
+
         if (count($errors) > 0) {
             foreach ($errors as $error) {
                 flash($error);
             }
-            header('Location: ' . APP_URL .'/jugador/edit?id=' . $_POST['id']);
+            header('Location: ' . APP_URL .'/jugador/new?equipo_id=' . $_POST['equipo_id']);
             exit;
         }
 
-        $jugador = Jugador::read($_POST['id']);
+        $jugador = new Jugador;
         $jugador->nombre = $_POST['nombre'];
         $jugador->numero = $_POST['numero'];
         $jugador->fecha_nacimiento = $_POST['fecha_nacimiento'] ?? null;
-        $jugador->update();
-        header('Location: ' . APP_URL .'/equipo?id=' . $jugador->equipo_id);
+        $jugador->equipo_id = $equipo->id;
+        $jugador->create();
+        flash('Jugador creado correctamente.');
+        header('Location: ' . APP_URL .'/equipo?id=' . $equipo->id);
         exit;
     }
 

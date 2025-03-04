@@ -78,6 +78,7 @@ hr {
 table {
     margin: auto;
     text-align: center;
+    margin-bottom: 50px;
 }
 
 table tr td, table tr th {
