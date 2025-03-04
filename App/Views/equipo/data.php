@@ -5,6 +5,10 @@
     </head>
     <body>
         <main>
+            <?php foreach (flash() as $error): ?>
+                <p><?= $error ?></p>
+            <?php endforeach; ?>
+
             <h1><?= $equipo->nombre ?></h1>
             <?php if (!empty($capitan)): ?>
                 <p>Capitán: <?= $capitan->nombre ?></p>
@@ -29,7 +33,13 @@
                         <td><?= $jugador->nombre ?></td>
                         <td><?= $jugador->edad() ?></td>
                         <td><?= $jugador->numero ?></td>
-                        <td><a href="<?= APP_URL ?>/jugadores/edit?id=<?= $jugador->id ?>">Editar</a></td>
+                        <td>
+                            <?php if (empty($capitan) || $capitan->id !== $jugador->id): ?>
+                                <a href="<?= APP_URL ?>/equipo/capitan?id=<?= $equipo->id ?>&jugador_id=<?= $jugador->id ?>">Hacer capitán</a>
+                            <?php endif; ?>
+                            <a href="<?= APP_URL ?>/jugadores/edit?id=<?= $jugador->id ?>">Editar</a>
+                            <a style="background-color: #a00000; color: white;" href="<?= APP_URL ?>/jugadores/delete?id=<?= $jugador->id ?>">Eliminar</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </table>

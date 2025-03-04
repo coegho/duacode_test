@@ -14,6 +14,7 @@ class Equipo extends Model
     public $ciudad;
     public $deporte;
     public $fecha_creacion;
+    public $capitan_id;
 
     public function deporte(): ?string
     {
@@ -27,22 +28,19 @@ class Equipo extends Model
         return $deportes[$this->deporte];
     }
 
+    public function capitan(): ?Jugador
+    {
+        if (empty($this->capitan_id)) {
+            return null;
+        }
+        return Jugador::read($this->capitan_id);
+    }
+
     public function jugadores(): array
     {
         if (empty($this->id)) {
             return [];
         }
         return Jugador::buscarPorEquipo($this->id);
-    }
-
-    public function capitan(): ?Jugador
-    {
-        $jugadores = $this->jugadores();
-        foreach ($jugadores as $jugador) {
-            if ($jugador->capitan) {
-                return $jugador;
-            }
-        }
-        return null;
     }
 }

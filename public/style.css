@@ -84,3 +84,9 @@ table tr td, table tr th {
     border: solid black 1px;
     padding: 15px 15px;
 }
+
+table a {
+    font-size: 12px;
+    padding: 10px 10px;
+    margin-left: 10px;
+}

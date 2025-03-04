@@ -8,7 +8,8 @@ CREATE TABLE Equipos (
     nombre VARCHAR(128) NOT NULL,
     ciudad VARCHAR(128) NULL,
     deporte SMALLINT NOT NULL REFERENCES Deportes(id),
-    fecha_creacion DATE NOT NULL
+    fecha_creacion DATE NOT NULL,
+    capitan_id INT NULL REFERENCES Jugadores(id)
 );
 
 CREATE TABLE Jugadores (
@@ -16,8 +17,7 @@ CREATE TABLE Jugadores (
     equipo_id INT NOT NULL REFERENCES Equipos(id),
     nombre VARCHAR(128) NOT NULL,
     numero TINYINT NOT NULL,
-    fecha_nacimiento DATE NULL,
-    capitan BOOLEAN NOT NULL DEFAULT 0
+    fecha_nacimiento DATE NULL
 );
 
 INSERT INTO Deportes (nombre)
