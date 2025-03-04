@@ -20,6 +20,7 @@ class UpdateEquipoController
         return ['equipo.create', [
             'deportes' => $deportes,
             'title' => 'Editar equipo ' . $equipo->nombre,
+            'submit_text' => 'Guardar',
             'equipo' => $equipo,
             'action' => APP_URL . '/equipo/edit',
             ]];

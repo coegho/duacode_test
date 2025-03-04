@@ -13,6 +13,7 @@ class CreateEquipoController
         return ['equipo.create', [
             'deportes' => $deportes,
             'title' => 'Crear un nuevo equipo',
+            'submit_text' => 'Crear',
             'action' => APP_URL . '/equipo/new',
             'equipo' => null,
             ]];
