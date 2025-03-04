@@ -3,6 +3,8 @@
 require_once __DIR__ . '/env.php';
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/session.php';
+
 
 function handleRoute($method, $uri)
 {
@@ -46,6 +48,7 @@ function displayView(string $_view_name, ?array $_params): void
         throw new \Exception("View $_view_name not found");
     }
 }
+
 
 try {
     handleRoute($_SERVER['REQUEST_METHOD'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));

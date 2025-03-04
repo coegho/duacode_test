@@ -4,12 +4,12 @@ namespace App\Controllers;
 
 use App\Models\Equipo;
 
-class EquipoController
+class ReadEquipoController
 {
     public function get()
     {
         if (empty($_GET['id'])) {
-            header('Location: equipos');
+            header('Location: ' . APP_URL .'/equipos');
             exit;
         }
 

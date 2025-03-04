@@ -9,6 +9,6 @@
             <p>Ciudad: <?= $equipo->ciudad ?></p>
         <?php endif; ?>
         <p>Fecha creación: <?= $equipo->fecha_creacion ?></p>
-        <a href="equipos">Volver al listado</a>
+        <a href="<?=APP_URL ?>/equipos">Volver al listado</a>
     </body>
 </html>
