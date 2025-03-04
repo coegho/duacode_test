@@ -14,7 +14,6 @@ class Jugador extends Model
     public $id;
     public $nombre;
     public $numero;
-    public $capitan;
     public $fecha_nacimiento;
 
     public function edad(): ?int
