@@ -9,7 +9,7 @@ CREATE TABLE Equipos (
     ciudad VARCHAR(128) NULL,
     deporte SMALLINT NOT NULL REFERENCES Deportes(id),
     fecha_creacion DATE NOT NULL,
-    capitan_id INT NULL REFERENCES Jugadores(id)
+    capitan_id INT NULL REFERENCES Jugadores(id) ON DELETE SET NULL
 );
 
 CREATE TABLE Jugadores (
