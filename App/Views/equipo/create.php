@@ -23,7 +23,7 @@
                     <?php endforeach; ?>
                 </select>
                 <label required for="fecha_creacion">Fecha de creación*:</label>
-                <input type="date" id="fecha_creacion" name="fecha_creacion" max="<?= date('Y-m-d') ?>" value="<?= $equipo?->fecha_creacion ?>" />
+                <input required type="date" id="fecha_creacion" name="fecha_creacion" max="<?= date('Y-m-d') ?>" value="<?= $equipo?->fecha_creacion ?>" />
                 <?php if (!empty($_GET['id'])): ?> <input type="hidden" value="<?= $_GET['id'] ?>" name="id" /> <?php endif; ?>
                 <button type="submit"><?= $submit_text ?></button>
             </form>
