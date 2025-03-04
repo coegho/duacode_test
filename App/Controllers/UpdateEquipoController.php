@@ -4,38 +4,50 @@ namespace App\Controllers;
 
 use App\Models\Equipo;
 
-class CreateEquipoController
+class UpdateEquipoController
 {
     public function get()
     {
+        if (empty($_GET['id'])) {
+            header('Location: ' . APP_URL .'/equipos');
+            exit;
+        }
+
+        $equipo = Equipo::read($_GET['id']);
+
         $deportes = require 'config/deportes.php';
 
         return ['equipo.create', [
             'deportes' => $deportes,
-            'title' => 'Crear un nuevo equipo',
-            'action' => APP_URL . '/equipo/new',
-            'equipo' => null,
+            'title' => 'Editar equipo ' . $equipo->nombre,
+            'equipo' => $equipo,
+            'action' => APP_URL . '/equipo/edit',
             ]];
     }
 
     public function post()
     {
+        if (empty($_POST['id'])) {
+            header('Location: ' . APP_URL .'/equipos');
+            exit;
+        }
+
         $errors = $this->validatePost();
         
         if (count($errors) > 0) {
             foreach ($errors as $error) {
                 flash($error);
             }
-            header('Location: ' . APP_URL .'/equipo/new');
+            header('Location: ' . APP_URL .'/equipo/edit?id=' . $_POST['id']);
             exit;
         }
 
-        $equipo = new Equipo;
+        $equipo = Equipo::read($_POST['id']);
         $equipo->nombre = $_POST['nombre'];
         $equipo->ciudad = $_POST['ciudad'] ?? null;
         $equipo->deporte = $_POST['deporte'];
         $equipo->fecha_creacion = $_POST['fecha_creacion'];
-        $equipo->create();
+        $equipo->update();
         header('Location: ' . APP_URL .'/equipo?id=' . $equipo->id);
         exit;
     }
