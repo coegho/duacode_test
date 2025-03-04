@@ -81,7 +81,7 @@ class Model
     {
         $primary_key = static::getPrimaryKey();
         $id = $this->$primary_key;
-        $sth = db()->prepare('DELETE * FROM ' . static::getTableName() . ' WHERE ' . static::getPrimaryKey() . ' = :id');
+        $sth = db()->prepare('DELETE FROM ' . static::getTableName() . ' WHERE ' . static::getPrimaryKey() . ' = :id');
         $sth->execute(['id' => $id]);
         return $sth->rowCount() > 0;
     }
