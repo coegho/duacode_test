@@ -32,6 +32,7 @@ function handleRoute($method, $uri)
         if (is_array($output)) {
             list($view, $params) = $output;
             displayView($view, $params);
+            return;
         }
     }
     http_response_code(404);
